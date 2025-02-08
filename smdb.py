@@ -15,3 +15,4 @@ def execute_db():
         for x in cur:
                 print(x)
 execute_db()
+print("hellow world")

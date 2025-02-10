@@ -11,7 +11,7 @@ class Result:
         self.root.focus_force()
 
         #======title====
-        title = Label(self.root,text="Add Student Result",font=("goudy old style",20,"bold"),bg="orange",fg="#262626").place(x=10,y=15,width=1500,height=50)
+        title = Label(self.root,text="Add Student Result",font=("goudy old style",20,"bold"),bg="orange",fg="#262626",justify=CENTER).place(x=10,y=15,width=1500,height=50)
         #  variables
 
         self.stud_id = StringVar()
@@ -27,7 +27,9 @@ class Result:
         labl_name=Label(self.root,text="Name",font=("goudy old style",15,"bold"),bg="white").place(x=50,y=160)
         labl_Course=Label(self.root,text="Course",font=("goudy old style",15,"bold"),bg="white").place(x=50,y=220)
         labl_marksObtained=Label(self.root,text="Marks Obtained",font=("goudy old style",15,"bold"),bg="white").place(x=50,y=280)
-        labl_fullMarks=Label(self.root,text="Full Marks",font=("goudy old style",15,"bold"),bg="white").place(x=50,y=340)
+        labl_fullMarks=Label(self.root,text="Total Marks",font=("goudy old style",15,"bold"),bg="white").place(x=50,y=340)
+
+        # searching feature
 
         self.txt_student=ttk.Combobox(self.root,textvariable=self.stud_id,values=self.stud_id_list,font=("goudy old style",15,"bold"),state="readonly",justify=CENTER)
         self.txt_student.place(x=280,y=100,width=200)
@@ -40,8 +42,8 @@ class Result:
         txt_fullmarks=Entry(self.root,textvariable=self.var_full_marks,font=("goudy old style",20,"bold"),bg="lightgrey").place(x=280,y=340,width=320)
 
         # buttons
-        add_add=Button(self.root,text="Submit",font=("times new roman",15),bg="lightgreen",activebackground="lightgreen",cursor="hand2",command=self.add).place(x=300,y=420,width=120,height=35)
-        add_clear=Button(self.root,text="clear",font=("times new roman",15),bg="lightgray",activebackground="lightgrey",cursor="hand2",command=self.clear).place(x=430,y=420,width=120,height=35)
+        btn_add=Button(self.root,text="Submit",font=("times new roman",15),bg="lightgreen",activebackground="lightgreen",cursor="hand2",command=self.add).place(x=300,y=420,width=120,height=35)
+        btn_clear=Button(self.root,text="clear",font=("times new roman",15),bg="lightgray",activebackground="lightgrey",cursor="hand2",command=self.clear).place(x=430,y=420,width=120,height=35)
         # image
         self.bgimage = Image.open("image/image1.jpg")
         self.bgimage = self.bgimage.resize((500,300))

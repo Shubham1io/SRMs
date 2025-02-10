@@ -3,6 +3,9 @@ from PIL import Image,ImageTk #pip install pillow
 from course import CourseClass #importing CourseClass
 from student import Student #importing student class
 from Result import Result #importing Result class
+from View import View # importing View class
+from tkinter import ttk,messagebox
+import mysql.connector
 class RMS:
     def __init__(self,root):
         self.root=root
@@ -19,14 +22,14 @@ class RMS:
         btn_course = Button(mFrame,text="Course",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2",command=self.add_course).place(x=80,y=5,width=200,height=40)
         btn_student = Button(mFrame,text="Student",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2",command=self.add_student).place(x=300,y=5,width=200,height=40)
         btn_result = Button(mFrame,text="Result",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2",command=self.add_result).place(x=520,y=5,width=200,height=40)
-        btn_view_students_details = Button(mFrame,text="View student Results",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2").place(x=740,y=5,width=200,height=40)
-        btn_exit = Button(mFrame,text="Exit",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2").place(x=1400,y=5,width=100,height=40)
+        btn_view_students_result = Button(mFrame,text="View student Results",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2",command=self.view_result).place(x=740,y=5,width=200,height=40)
+        btn_exit = Button(mFrame,text="Exit",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2",command=self.exit).place(x=1400,y=5,width=100,height=40)
         #=====content window====
         self.bgimage = Image.open("image/image.png")
-        self.bgimage = self.bgimage.resize((920,400))
+        self.bgimage = self.bgimage.resize((1220,500))
         self.bgimage = ImageTk.PhotoImage(self.bgimage)
 
-        self.lbl_bg =  Label(self.root,image=self.bgimage).place(x=600,y=180,width=920,height=400)
+        self.lbl_bg =  Label(self.root,image=self.bgimage).place(x=220,y=180,width=1220,height=400)
         
         #======title====
         footer = Label(self.root,text="SRMS-Student Result Management System\nContact Us for any Technical Issue:999xxxxx01",font=("goudy old style",12,"bold"),bg="#262626",fg="white").pack(side=BOTTOM,fill=X)
@@ -34,13 +37,15 @@ class RMS:
         #====updates details====
 
         self.lbl_course = Label(self.root,text="Total Courses\n[ 0 ]" ,font=("goudy old style",20),bd=10,relief=RIDGE,bg="#e43b06",fg="white")
-        self.lbl_course.place(x=600,y=545,width=300,height=100)
+        self.lbl_course.place(x=370,y=580,width=300,height=100)
 
         self.lbl_Student = Label(self.root,text="Total Students\n[ 0 ]" ,font=("goudy old style",20),bd=10,relief=RIDGE,bg="#0676ad",fg="white")
-        self.lbl_Student.place(x=910,y=545,width=300,height=100)
+        self.lbl_Student.place(x=690,y=580,width=300,height=100)
 
         self.lbl_Result = Label(self.root,text="Total Results\n[ 0 ]" ,font=("goudy old style",20),bd=10,relief=RIDGE,bg="#038074",fg="white")
-        self.lbl_Result.place(x=1220,y=545,width=300,height=100)
+        self.lbl_Result.place(x=1010,y=580,width=300,height=100)
+
+        self.update_details()
 
     def add_course(self):
         self.new_wind = Toplevel(self.root)
@@ -54,17 +59,62 @@ class RMS:
 
     def add_result(self):
         self.new_wind = Toplevel(self.root)
-        self.new_obj = Result(self.new_wind)     
+        self.new_obj = Result(self.new_wind) 
+
+    def view_result(self):
+        self.new_wind = Toplevel(self.root)
+        self.new_obj = View(self.new_wind)  
+
+    # update details
+    def update_details(self):
+        try:
+            conn = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="new_password",
+                database="student_management",
+                auth_plugin="mysql_native_password"
+                )
+            cursor = conn.cursor()
+
+            # course
+
+            cursor.execute("SELECT * FROM courses")
+            cur = cursor.fetchall()
+
+            self.lbl_course.config(text=f"Total Course\n[{str(len(cur))}]")
+                 
+            # student
+            cursor.execute("SELECT * FROM student")
+            cur = cursor.fetchall()
+
+            self.lbl_Student.config(text=f"Total Student\n[{str(len(cur))}]")
+
+            # Result
+            cursor.execute("SELECT * FROM Result")
+            cur = cursor.fetchall()
+
+            self.lbl_Result.config(text=f"Total Result\n[{str(len(cur))}]")
+            
+            self.lbl_course.after(200,self.update_details)
+           
+            conn.close()
+        except Exception as ex:
+            messagebox.showerror("Error", f"Error due to {str(ex)}")
+
+    #   Exit 
+
+    def exit(self):
+        op = messagebox.askyesno("confirm","Do you really want to exit",parent=self.root)
+
+        if op == True:
+            self.root.destroy()
+
+
+      
     
 
-
-
-
-
-
-
-
-
+    
         
 if __name__=="__main__":
     root = Tk()

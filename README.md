@@ -22,6 +22,7 @@ The Student Result Management System is a Python-based application that utilizes
   - `Pillow` for image handling
 
 Installation
+
 Clone the Repository:
 
 git clone https://github.com/Shubham1io/SRMs.git

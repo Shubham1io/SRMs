@@ -16,7 +16,7 @@ class RMS:
         self.logo_dash = ImageTk.PhotoImage(file="image/ezgif-68d89e630deaf.png")
         #======title====
         title = Label(self.root,text="Student Result Management System",padx=10,compound=LEFT,image=self.logo_dash,font=("goudy old style",20,"bold"),bg="#033054",fg="white").place(x=0,y=0,relwidth=1,height=50)        #-----Menu---- 
-        mFrame = LabelFrame(self.root,text="Menus",font=("times new roman",15),bg="lightgrey")
+        mFrame = LabelFrame(self.root,text="Menu",font=("times new roman",15),bg="lightgrey")
         mFrame.place(x=10,y=70,width="1520",height=80)
         #----button-----
         btn_course = Button(mFrame,text="Course",font=("goudy old style",15,"bold"),bg="#0b5377",fg="white",cursor="hand2",command=self.add_course).place(x=80,y=5,width=200,height=40)

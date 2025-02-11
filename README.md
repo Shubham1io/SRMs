@@ -48,8 +48,11 @@ python main.py
 Usage
 
 Add Student: Navigate to the 'Add Student' section to input new student details.
+
 Update Student: Select a student record and modify the details as needed.
+
 Delete Student: Remove a student record from the database.
+
 View Results: View all student results in a structured table.
 
 Contributing

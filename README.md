@@ -24,11 +24,9 @@ The Student Result Management System is a Python-based application that utilizes
 Installation
 Clone the Repository:
 
-bash
-Copy
-Edit
 git clone https://github.com/Shubham1io/SRMs.git
 cd SRMs
+
 Install Dependencies:
 
 pip install -r requirements.txt
